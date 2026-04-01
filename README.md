@@ -1,28 +1,72 @@
 # SAT Solver in C++
 
 A modular SAT Solver built in C++ using a structured, phase-based approach.
-This project implements core concepts from Boolean logic and discrete mathematics, including CNF parsing and (upcoming) DPLL-based solving.
+This project explores core concepts from Boolean logic, discrete mathematics, and algorithm design.
 
 ---
 
 ## 🚀 Features (Current)
 
 * ✅ DIMACS CNF file parsing
-* ✅ Clean modular architecture
-* 🔜 DPLL algorithm (coming in next phases)
+* ✅ Assignment system (3-state logic)
+* ✅ Clause evaluation engine
+* ✅ Formula evaluation (SAT / UNSAT / UNDECIDED)
+* 🔜 DPLL algorithm (next phase)
 * 🔜 Unit propagation
 * 🔜 Pure literal elimination
 
 ---
 
-## 🧠 What is SAT?
+## 🧠 Core Concepts
 
-The Boolean Satisfiability Problem (SAT) asks:
+### Boolean Satisfiability (SAT)
 
-> Can a Boolean formula be satisfied by some assignment of TRUE/FALSE values?
+Given a Boolean formula, determine if there exists an assignment of variables that makes it TRUE.
 
 Example:
 (x₁ ∨ ¬x₂) ∧ (x₂ ∨ x₃)
+
+---
+
+### CNF (Conjunctive Normal Form)
+
+A formula is in CNF if it is:
+
+* AND of clauses
+* Each clause is an OR of literals
+
+Example:
+1 -2 0 → (x₁ ∨ ¬x₂)
+
+---
+
+### Assignment System
+
+Each variable can be:
+
+| Value | Meaning    |
+| ----- | ---------- |
+| 1     | TRUE       |
+| -1    | FALSE      |
+| 0     | UNASSIGNED |
+
+---
+
+### Clause Evaluation
+
+A clause can be:
+
+* TRUE → at least one literal is TRUE
+* FALSE → all literals are FALSE
+* UNDECIDED → no TRUE yet, but some unassigned
+
+---
+
+### Formula Evaluation
+
+* SAT (1) → all clauses TRUE
+* UNSAT (-1) → at least one clause FALSE
+* UNDECIDED (0) → otherwise
 
 ---
 
@@ -33,13 +77,16 @@ sat-solver/
 ├── src/
 │   ├── main.cpp
 │   ├── parser.cpp
+│   ├── solver.cpp
 │
 ├── include/
 │   ├── parser.h
+│   ├── solver.h
 │
 ├── test/
 │   ├── sample.cnf
 │
+├── .gitignore
 └── README.md
 
 ---
@@ -48,11 +95,11 @@ sat-solver/
 
 ### Linux / Mac
 
-g++ -std=c++17 src/main.cpp src/parser.cpp -Iinclude -o sat_solver
+g++ -std=c++17 src/main.cpp src/parser.cpp src/solver.cpp -Iinclude -o sat_solver
 
 ### Windows
 
-g++ -std=c++17 src/main.cpp src/parser.cpp -Iinclude -o sat_solver.exe
+g++ -std=c++17 src/main.cpp src/parser.cpp src/solver.cpp -Iinclude -o sat_solver.exe
 
 ---
 
@@ -81,10 +128,23 @@ Each line represents a clause:
 
 ---
 
+## 🧪 Current Output
+
+Example:
+Initial Formula State: 0
+
+Meaning:
+
+* 1 → SAT
+* -1 → UNSAT
+* 0 → UNDECIDED
+
+---
+
 ## 🛠️ Roadmap
 
 * [x] Phase 1: CNF Parser
-* [ ] Phase 2: Data Structures & Assignment System
+* [x] Phase 2: Assignment & Evaluation System
 * [ ] Phase 3: Basic DPLL Solver
 * [ ] Phase 4: Unit Propagation
 * [ ] Phase 5: Pure Literal Elimination
@@ -106,6 +166,16 @@ CSE Student | Robotics & Systems Enthusiast
 
 ---
 
-## ⭐ Contributing
+## ⭐ Notes
 
-This is a learning-focused project, but suggestions and improvements are welcome!
+This project is being built incrementally to emphasize:
+
+* Clean architecture
+* Algorithmic clarity
+* Real-world engineering practices
+
+---
+
+## 🤝 Contributions
+
+Open to suggestions, optimizations, and improvements!
