@@ -53,23 +53,31 @@ int Solver::chooseVariable() {
 
 bool Solver::dpll() {
 
-    if (!unitPropogation()) return false;
+    while(true) {
+        if (!unitPropogation()) return false;
+
+        bool changed =pureLiteralElimination();
+        if (!changed) break;
+    }
+
     int state = evaluateFormula();
 
     if (state == 1) return true;
     if (state == -1) return false;
 
     int var = chooseVariable();
-
     if (var == -1) return false;
 
+    std::vector<int> backup = assignment;
     assignment[var] = 1;
     if (dpll()) return true;
+
+    assignment = backup;
 
     assignment[var] = -1;
     if(dpll()) return true;
 
-    assignment[var] = 0;
+    assignment = backup;
 
     return false;
 }
@@ -119,4 +127,40 @@ bool Solver::unitPropogation() {
         }
     }
     return true;
+}
+
+bool Solver::pureLiteralElimination() {
+    int n = assignment.size();
+
+    std::vector<bool> appearsPos(n, false);
+    std::vector<bool> appearsNeg(n, false);
+
+    for (const auto& clause : clauses) {
+        for (int lit : clause) {
+            int var = abs(lit);
+
+            if (assignment[var] != 0) continue;
+
+            if (lit > 0) appearsPos[var] = true;
+            else appearsNeg[var] = true;
+        }
+    }
+
+    bool changed = false;
+
+    for (int i = 1; i < n; i++) {
+        if (assignment[i] != 0) continue;
+
+        if (appearsPos[i] && !appearsNeg[i]) {
+            assignment[i] = 1;
+            changed = true;
+        }
+
+        else if (!appearsPos[i] && appearsNeg[i]) {
+            assignment[i] = -1;
+            changed = true;
+        }
+    }
+
+    return changed;
 }

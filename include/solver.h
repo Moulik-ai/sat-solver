@@ -16,6 +16,7 @@ class Solver {
     bool dpll();
     int chooseVariable();
     bool unitPropogation();
+    bool pureLiteralElimination();
 
 };
 #endif
