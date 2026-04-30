@@ -42,3 +42,32 @@ int Solver::evaluateFormula() {
 
     return allTrue ? 1 : 0;
 }
+
+int Solver::chooseVariable() {
+    for (int i = 1; i < assignment.size(); i++) {
+        if (assignment[i] == 0) return i;
+    }
+    return -1;
+
+}
+
+bool Solver::dpll() {
+    int state = evaluateFormula();
+
+    if (state == 1) return true;
+    if (state == -1) return false;
+
+    int var = chooseVariable();
+
+    if (var == -1) return false;
+
+    assignment[var] = 1;
+    if (dpll()) return true;
+
+    assignment[var] = -1;
+    if(dpll()) return true;
+
+    assignment[var] = 0;
+
+    return false;
+}

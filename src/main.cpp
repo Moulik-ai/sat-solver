@@ -16,8 +16,12 @@ int main(int argc, char* argv[]) {
 
     Solver solver(parser.clauses, parser.numVariables);
 
-    std::cout << "Initial Formula State: "
-                << solver.evaluateFormula() << "\n";
+    bool result = solver.dpll();
 
+    if (result) {
+        std::cout << "SAT\n";
+    } else {
+        std::cout << "UNSAT\n";
+    }
     return 0;
 }
