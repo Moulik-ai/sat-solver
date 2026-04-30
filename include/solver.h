@@ -13,5 +13,9 @@ class Solver {
     int evaluateClause(const std::vector<int>& clause);
     int evaluateFormula();
 
+    bool dpll();
+    int chooseVariable();
+    bool unitPropogation();
+
 };
 #endif
