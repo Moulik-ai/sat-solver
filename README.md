@@ -60,7 +60,6 @@ Example:
 
 ## 📸 Demo
 
-> Replace the image below with your own screenshot
 
 ![SAT Solver Demo](screenshot.png)
 
