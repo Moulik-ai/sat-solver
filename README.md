@@ -62,7 +62,7 @@ Example:
 
 > Replace the image below with your own screenshot
 
-![SAT Solver Demo](demo/screenshot.png)
+![SAT Solver Demo](screenshot.png)
 
 ---
 
