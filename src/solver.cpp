@@ -1,5 +1,6 @@
 #include "../include/solver.h"
 #include <cstdlib>
+#include <iostream>
 
 Solver::Solver(const std::vector<std::vector<int>>& cls, int numVars) {
     clauses = cls;
@@ -163,4 +164,18 @@ bool Solver::pureLiteralElimination() {
     }
 
     return changed;
+}
+
+void Solver::printAssignment() {
+    for (int i = 1; i < assignment.size(); i++) {
+        if (assignment[i] == 1){
+            std::cout << "x" << i << " = True\n";
+        }
+        else if (assignment[i] == -1) {
+            std::cout << "x" << i << " = FALSE\n";
+        }
+        else {
+            std::cout << "x" << i << " = UNASSIGNED\n";
+        }
+    }
 }

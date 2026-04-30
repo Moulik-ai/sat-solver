@@ -18,5 +18,7 @@ class Solver {
     bool unitPropogation();
     bool pureLiteralElimination();
 
+    void printAssignment();
+
 };
 #endif

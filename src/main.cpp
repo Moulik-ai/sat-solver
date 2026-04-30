@@ -20,6 +20,7 @@ int main(int argc, char* argv[]) {
 
     if (result) {
         std::cout << "SAT\n";
+        solver.printAssignment();
     } else {
         std::cout << "UNSAT\n";
     }

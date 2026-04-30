@@ -1,19 +1,19 @@
 # SAT Solver in C++
 
 A modular SAT Solver built in C++ using a structured, phase-based approach.
-This project explores core concepts from Boolean logic, discrete mathematics, and algorithm design.
+This project implements CNF parsing, DPLL-based solving, and key optimizations from discrete mathematics.
 
 ---
 
-## 🚀 Features (Current)
+## 🚀 Features
 
 * ✅ DIMACS CNF file parsing
-* ✅ Assignment system (3-state logic)
-* ✅ Clause evaluation engine
-* ✅ Formula evaluation (SAT / UNSAT / UNDECIDED)
-* 🔜 DPLL algorithm (next phase)
-* 🔜 Unit propagation
-* 🔜 Pure literal elimination
+* ✅ Three-state assignment system
+* ✅ Clause & formula evaluation engine
+* ✅ DPLL (backtracking SAT solver)
+* ✅ Unit propagation optimization
+* ✅ Pure literal elimination
+* ✅ SAT assignment output
 
 ---
 
@@ -21,16 +21,13 @@ This project explores core concepts from Boolean logic, discrete mathematics, an
 
 ### Boolean Satisfiability (SAT)
 
-Given a Boolean formula, determine if there exists an assignment of variables that makes it TRUE.
-
-Example:
-(x₁ ∨ ¬x₂) ∧ (x₂ ∨ x₃)
+Determine whether a Boolean formula can be satisfied by assigning TRUE/FALSE values to variables.
 
 ---
 
 ### CNF (Conjunctive Normal Form)
 
-A formula is in CNF if it is:
+A formula is:
 
 * AND of clauses
 * Each clause is an OR of literals
@@ -42,8 +39,6 @@ Example:
 
 ### Assignment System
 
-Each variable can be:
-
 | Value | Meaning    |
 | ----- | ---------- |
 | 1     | TRUE       |
@@ -52,21 +47,22 @@ Each variable can be:
 
 ---
 
-### Clause Evaluation
+## ⚙️ Algorithm Overview
 
-A clause can be:
+### DPLL Algorithm
 
-* TRUE → at least one literal is TRUE
-* FALSE → all literals are FALSE
-* UNDECIDED → no TRUE yet, but some unassigned
+1. Apply **Unit Propagation**
+2. Apply **Pure Literal Elimination**
+3. Choose an unassigned variable
+4. Try TRUE / FALSE (backtracking)
 
 ---
 
-### Formula Evaluation
+## 📸 Demo
 
-* SAT (1) → all clauses TRUE
-* UNSAT (-1) → at least one clause FALSE
-* UNDECIDED (0) → otherwise
+> Replace the image below with your own screenshot
+
+![SAT Solver Demo](demo/screenshot.png)
 
 ---
 
@@ -86,6 +82,9 @@ sat-solver/
 ├── test/
 │   ├── sample.cnf
 │
+├── demo/
+│   └── screenshot.png   ← (add your screenshot here)
+│
 ├── .gitignore
 └── README.md
 
@@ -95,11 +94,11 @@ sat-solver/
 
 ### Linux / Mac
 
-g++ -std=c++17 src/main.cpp src/parser.cpp src/solver.cpp -Iinclude -o sat_solver
+g++ -std=c++17 src/*.cpp -Iinclude -o sat_solver
 
 ### Windows
 
-g++ -std=c++17 src/main.cpp src/parser.cpp src/solver.cpp -Iinclude -o sat_solver.exe
+g++ -std=c++17 src/*.cpp -Iinclude -o sat_solver.exe
 
 ---
 
@@ -115,6 +114,15 @@ sat_solver.exe test/sample.cnf
 
 ---
 
+## 🧪 Example Output
+
+SAT
+x1 = TRUE
+x2 = FALSE
+x3 = TRUE
+
+---
+
 ## 📘 DIMACS CNF Format
 
 Example:
@@ -123,32 +131,16 @@ p cnf 3 2
 1 -2 0
 2 3 0
 
-Each line represents a clause:
-1 -2 0 → (x₁ ∨ ¬x₂)
-
----
-
-## 🧪 Current Output
-
-Example:
-Initial Formula State: 0
-
-Meaning:
-
-* 1 → SAT
-* -1 → UNSAT
-* 0 → UNDECIDED
-
 ---
 
 ## 🛠️ Roadmap
 
 * [x] Phase 1: CNF Parser
-* [x] Phase 2: Assignment & Evaluation System
-* [ ] Phase 3: Basic DPLL Solver
-* [ ] Phase 4: Unit Propagation
-* [ ] Phase 5: Pure Literal Elimination
-* [ ] Phase 6: CLI + Testing
+* [x] Phase 2: Assignment & Evaluation
+* [x] Phase 3: DPLL Solver
+* [x] Phase 4: Unit Propagation
+* [x] Phase 5: Pure Literal Elimination
+* [x] Phase 6: SAT Assignment Output
 
 ---
 
@@ -162,20 +154,20 @@ Meaning:
 ## 📌 Author
 
 Moulik Choudhary
-CSE Student | Robotics & Systems Enthusiast
+CSE Student | Systems & Problem Solving Enthusiast
 
 ---
 
 ## ⭐ Notes
 
-This project is being built incrementally to emphasize:
+This project demonstrates:
 
-* Clean architecture
-* Algorithmic clarity
-* Real-world engineering practices
+* Clean modular design
+* Application of discrete mathematics
+* Real-world algorithm implementation
 
 ---
 
 ## 🤝 Contributions
 
-Open to suggestions, optimizations, and improvements!
+Suggestions, optimizations, and improvements are welcome!
