@@ -52,6 +52,8 @@ int Solver::chooseVariable() {
 }
 
 bool Solver::dpll() {
+
+    if (!unitPropogation()) return false;
     int state = evaluateFormula();
 
     if (state == 1) return true;
@@ -70,4 +72,51 @@ bool Solver::dpll() {
     assignment[var] = 0;
 
     return false;
+}
+
+bool Solver::unitPropogation() {
+    bool changed = true;
+
+    while (changed) {
+        changed = false;
+
+        for (const auto& clause : clauses) {
+            int unassignedCount = 0;
+            int lastUnassignedLit = 0;
+            bool clauseTrue = false;
+
+            for (int lit : clause) {
+                int val = evaluateLiteral(lit);
+
+                if (val == 1) {
+                    clauseTrue = true;
+                    break;
+
+                }
+
+                if (val == 0) {
+                    unassignedCount++;
+                    lastUnassignedLit = lit;
+                }
+            }
+
+            if (clauseTrue) continue;
+
+            if (unassignedCount == 0) {
+                return false;
+
+            }
+
+            if (unassignedCount == 1) {
+                int var= abs(lastUnassignedLit);
+                int value = (lastUnassignedLit > 0) ? 1 : -1;
+
+                if (assignment[var] == 0) {
+                    assignment[var] = value;
+                    changed = true;
+                }
+            }
+        }
+    }
+    return true;
 }
